@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-import 'screens/disciplina_screen.dart';
+import 'package:provider/provider.dart';
 import 'stores/academic_store.dart';
-import 'db/database_helper.dart';
+import 'screens/disciplina_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<AcademicStore>(
+          create: (_) => AcademicStore(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  final AcademicStore store = AcademicStore();
-  final DatabaseHelper dbHelper = DatabaseHelper();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Academic Report App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: DisciplinaScreen(store: store),
+    return const MaterialApp(
+      home: DisciplinaScreen(), // Remova o parâmetro store
     );
   }
 }

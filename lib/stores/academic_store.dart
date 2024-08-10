@@ -19,7 +19,8 @@ abstract class _AcademicStore with Store {
   @action
   void addNota(int disciplinaId, Nota nota) {
     var disciplina = disciplinas.firstWhere((d) => d.id == disciplinaId);
-    disciplina.notas.add(nota);
+    disciplina.notas
+        .add(nota); // Certifique-se de que disciplina.notas é um List mutável
   }
 
   double calcularMedia(Disciplina disciplina) {

@@ -4,12 +4,12 @@ import '../stores/academic_store.dart';
 class RelatorioScreen extends StatelessWidget {
   final AcademicStore store;
 
-  RelatorioScreen({required this.store});
+  const RelatorioScreen({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Relatórios')),
+      appBar: AppBar(title: const Text('Relatórios')),
       body: ListView.builder(
         itemCount: store.disciplinas.length,
         itemBuilder: (context, index) {
@@ -18,7 +18,8 @@ class RelatorioScreen extends StatelessWidget {
           final aprovado = store.verificarAprovacao(disciplina);
           return ListTile(
             title: Text(disciplina.nome),
-            subtitle: Text('Média: ${media.toStringAsFixed(2)} - ${aprovado ? 'Aprovado' : 'Reprovado'}'),
+            subtitle: Text(
+                'Média: ${media.toStringAsFixed(2)} - ${aprovado ? 'Aprovado' : 'Reprovado'}'),
           );
         },
       ),

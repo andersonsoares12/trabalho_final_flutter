@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 import '../models/disciplina.dart';
 import '../models/nota.dart';
 
@@ -38,6 +38,35 @@ class DatabaseHelper {
         FOREIGN KEY(disciplinaId) REFERENCES disciplinas(id)
       )
     ''');
+  }
+
+  Future<List<Disciplina>> getDisciplinas() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('disciplinas');
+    return List.generate(maps.length, (i) {
+      return Disciplina(
+        id: maps[i]['id'],
+        nome: maps[i]['nome'],
+        isAnual: maps[i]['isAnual'] == 1,
+      );
+    });
+  }
+
+  Future<List<Nota>> getNotas(int disciplinaId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'notas',
+      where: 'disciplinaId = ?',
+      whereArgs: [disciplinaId],
+    );
+    return List.generate(maps.length, (i) {
+      return Nota(
+        id: maps[i]['id'],
+        disciplinaId: maps[i]['disciplinaId'],
+        bimestre: maps[i]['bimestre'],
+        valor: maps[i]['valor'],
+      );
+    });
   }
 
   Future<void> insertDisciplina(Disciplina disciplina) async {

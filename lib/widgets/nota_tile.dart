@@ -4,7 +4,7 @@ import '../models/nota.dart';
 class NotaTile extends StatelessWidget {
   final Nota nota;
 
-  NotaTile({required this.nota});
+  const NotaTile({super.key, required this.nota});
 
   @override
   Widget build(BuildContext context) {

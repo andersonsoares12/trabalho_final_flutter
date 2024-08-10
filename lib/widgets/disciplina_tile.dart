@@ -4,7 +4,7 @@ import '../models/disciplina.dart';
 class DisciplinaTile extends StatelessWidget {
   final Disciplina disciplina;
 
-  DisciplinaTile({required this.disciplina});
+  const DisciplinaTile({super.key, required this.disciplina});
 
   @override
   Widget build(BuildContext context) {
